@@ -42,7 +42,7 @@
             fetch(url)
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data);
+                   
                     const temp = document.getElementById('temperature');
                     temp.innerText = data.main.temp;
                     const city_name = document.getElementById('cityName');
