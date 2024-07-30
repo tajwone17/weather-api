@@ -29,7 +29,7 @@
             </div>
         </form>
         <div class="weather-status text-white text-center">
-            <img src="https://openweathermap.org/img/wn/02d@2x.png" alt="">
+            <img id="icon" src="https://openweathermap.org/img/wn/02d@2x.png" alt="">
             <h1 id="cityName">Location</h1>
             <h3 id="temperature"><span>Temperature in </span>&deg;C</h3>
             <h1 class="lead" id="weatherDescription">Weather Description</h1>
@@ -38,17 +38,19 @@
     <script>
         document.getElementById('src').addEventListener('click', () => {
             const city = document.getElementById('cityInput').value;
-            const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&units=metric&appid=77b4785d0a9ec32cf2f8a568fbcf16fc`;
+            const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=77b4785d0a9ec32cf2f8a568fbcf16fc`;
             fetch(url)
                 .then(res => res.json())
                 .then(data => {
-                   
+                    const weather=data.weather[0];
                     const temp = document.getElementById('temperature');
                     temp.innerText = data.main.temp;
                     const city_name = document.getElementById('cityName');
                     city_name.innerText = data.name;
                     const description = document.getElementById('weatherDescription');
-                    description.innerText = data.weather[0].description;
+                    description.innerText = weather.description;
+                    const icon=document.getElementById('icon');
+                    icon.src=`https://openweathermap.org/img/wn/${weather.icon}@2x.png`;
                 });
 
 
